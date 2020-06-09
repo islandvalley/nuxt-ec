@@ -1,36 +1,160 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxt-ec
-      </h1>
-      <h2 class="subtitle">
-        My mathematical Nuxt.js project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <div>
+    <header class="header">
+      <div>Logo</div>
+      <div>
+        <input v-model="searchWord" type="text" />
+        <button type="button" @click="search">検索</button>
       </div>
-    </div>
+      <div>
+        menu
+      </div>
+    </header>
+    <main class="main">
+      <div class="main-block">
+        <div class="side-list-wrapper">
+          <div class="side-list">
+            <div>絞り込み</div>
+            <ul>
+              <li>
+                <input id="t-thirt" type="checkbox" />
+                <label for="t-thirt">Tシャツ</label>
+              </li>
+              <li>
+                <input id="tops" type="checkbox" />
+                <label for="tops">トップス</label>
+              </li>
+              <li>
+                <input id="pants" type="checkbox" />
+                <label for="pants">パンツ</label>
+              </li>
+              <li>
+                <input id="shoes" type="checkbox" />
+                <label for="shoes">靴</label>
+              </li>
+              <li>
+                <input id="accesory" type="checkbox" />
+                <label for="accesory">アクセサリ</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <h2>{{ `${searchWord}の検索結果${items.length}件` }}</h2>
+          <ul class="list">
+            <li v-for="(item, index) in items" :key="index" class="item">
+              <h4 class="item-title">{{ item.name }}</h4>
+              <img
+                :src="
+                  item.src.length > 0
+                    ? item.src
+                    : 'https://via.placeholder.com/150?text=No+Image'
+                "
+                alt="画像"
+                class="item-image"
+              />
+              <p class="item-description">
+                {{ item.description }}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <small>Copy Write</small>
+    </footer>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Logo from '~/components/Logo.vue'
 
 export default Vue.extend({
-  components: {
-    Logo
+  data() {
+    return {
+      searchWord: '',
+      items: [
+        {
+          name: 'item 1',
+          description: '商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/150'
+        },
+        {
+          name: 'item 2',
+          description:
+            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/150x300'
+        },
+        {
+          name: 'item 3タイトルがめっちゃ長くなってる',
+          description:
+            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/300x150'
+        },
+        {
+          name: 'item 4',
+          description: '商品の説明商品の説明',
+          src: 'https://via.placeholder.com/200'
+        },
+        {
+          name: 'item 5',
+          description: '',
+          src: ''
+        },
+        {
+          name: 'item 6',
+          description:
+            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/150'
+        },
+        {
+          name: 'item 7',
+          description: '商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/150'
+        },
+        {
+          name: 'item 8',
+          description:
+            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/150x300'
+        },
+        {
+          name: 'item 9タイトルがめっちゃ長くなってる',
+          description:
+            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/300x150'
+        },
+        {
+          name: 'item 10',
+          description: '商品の説明商品の説明',
+          src: 'https://via.placeholder.com/200'
+        },
+        {
+          name: 'item 11',
+          description: '',
+          src: ''
+        },
+        {
+          name: 'item 12',
+          description:
+            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/150'
+        },
+        {
+          name: 'item 13',
+          description:
+            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+          src: 'https://via.placeholder.com/150'
+        }
+      ]
+    }
+  },
+  computed: {},
+  methods: {
+    search() {
+      console.log(this.searchWord)
+    }
   }
 })
 </script>
@@ -65,5 +189,72 @@ export default Vue.extend({
 
 .links {
   padding-top: 15px;
+}
+
+.list {
+  width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.item {
+  padding: 12px;
+  width: 25%;
+}
+
+.item-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.item-description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+
+.main-block {
+  display: flex;
+}
+
+.header {
+  align-items: center;
+  height: 100px;
+  background: #35495e;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer {
+  height: 100px;
+  background: #35495e;
+}
+
+.side-list {
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  margin: 0 8px;
+  padding: 8px;
+  width: 160px;
+  position: sticky;
+  top: 0;
+}
+
+/* side-listのsticky用の親要素 */
+.side-list-wrapper {
+  display: block;
+}
+
+.main {
+  margin: 20px 0;
 }
 </style>
