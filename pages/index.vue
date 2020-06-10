@@ -2,15 +2,22 @@
   <div>
     <header class="header">
       <div>Logo</div>
-      <div>
-        <input v-model="searchWord" type="text" />
-        <button type="button" @click="search">検索</button>
+      <div class="search-box">
+        <input v-model="searchWord" type="text" class="search-box__input" />
+        <button type="button" class="search-box__button" @click="search">
+          検索
+        </button>
       </div>
       <div>
         menu
       </div>
     </header>
     <main class="main">
+      <div v-show="!searching">
+        <h2>
+          {{ searchedWord ? `${searchedWord}の検索結果${items.length}件` : '' }}
+        </h2>
+      </div>
       <div class="main-block">
         <div class="side-list-wrapper">
           <div class="side-list">
@@ -40,8 +47,8 @@
           </div>
         </div>
         <div>
-          <h2>{{ `${searchWord}の検索結果${items.length}件` }}</h2>
-          <ul class="list">
+          <p v-if="searching">検索中</p>
+          <ul v-else class="list">
             <li v-for="(item, index) in items" :key="index" class="item">
               <h4 class="item-title">{{ item.name }}</h4>
               <img
@@ -53,7 +60,7 @@
                 alt="画像"
                 class="item-image"
               />
-              <p class="item-description">
+              <p v-show="!!item.description" class="item-description">
                 {{ item.description }}
               </p>
             </li>
@@ -74,89 +81,104 @@ export default Vue.extend({
   data() {
     return {
       searchWord: '',
-      items: [
-        {
-          name: 'item 1',
-          description: '商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/150'
-        },
-        {
-          name: 'item 2',
-          description:
-            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/150x300'
-        },
-        {
-          name: 'item 3タイトルがめっちゃ長くなってる',
-          description:
-            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/300x150'
-        },
-        {
-          name: 'item 4',
-          description: '商品の説明商品の説明',
-          src: 'https://via.placeholder.com/200'
-        },
-        {
-          name: 'item 5',
-          description: '',
-          src: ''
-        },
-        {
-          name: 'item 6',
-          description:
-            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/150'
-        },
-        {
-          name: 'item 7',
-          description: '商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/150'
-        },
-        {
-          name: 'item 8',
-          description:
-            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/150x300'
-        },
-        {
-          name: 'item 9タイトルがめっちゃ長くなってる',
-          description:
-            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/300x150'
-        },
-        {
-          name: 'item 10',
-          description: '商品の説明商品の説明',
-          src: 'https://via.placeholder.com/200'
-        },
-        {
-          name: 'item 11',
-          description: '',
-          src: ''
-        },
-        {
-          name: 'item 12',
-          description:
-            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/150'
-        },
-        {
-          name: 'item 13',
-          description:
-            '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-          src: 'https://via.placeholder.com/150'
-        }
-      ]
+      searchedWord: '',
+      searching: false,
+      items: []
     }
   },
   computed: {},
   methods: {
-    search() {
+    async search() {
       console.log(this.searchWord)
+
+      this.searchedWord = this.searchWord
+      this.searchWord = ''
+
+      // 検索中に当たる挙動
+      this.items = []
+      this.searching = true
+      await setTimeout(() => {
+        this.items = items
+        this.searching = false
+      }, 3000)
     }
   }
 })
+
+const items = [
+  {
+    name: 'item 1',
+    description: '商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/150'
+  },
+  {
+    name: 'item 2',
+    description:
+      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/150x300'
+  },
+  {
+    name: 'item 3タイトルがめっちゃ長くなってる',
+    description:
+      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/300x150'
+  },
+  {
+    name: 'item 4',
+    description: '商品の説明商品の説明',
+    src: 'https://via.placeholder.com/200'
+  },
+  {
+    name: 'item 5',
+    description: '',
+    src: ''
+  },
+  {
+    name: 'item 6',
+    description:
+      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/150'
+  },
+  {
+    name: 'item 7',
+    description: '商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/150'
+  },
+  {
+    name: 'item 8',
+    description:
+      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/150x300'
+  },
+  {
+    name: 'item 9タイトルがめっちゃ長くなってる',
+    description:
+      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/300x150'
+  },
+  {
+    name: 'item 10',
+    description: '商品の説明商品の説明',
+    src: 'https://via.placeholder.com/200'
+  },
+  {
+    name: 'item 11',
+    description: '',
+    src: ''
+  },
+  {
+    name: 'item 12',
+    description:
+      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/150'
+  },
+  {
+    name: 'item 13',
+    description:
+      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
+    src: 'https://via.placeholder.com/150'
+  }
+]
 </script>
 
 <style>
@@ -245,8 +267,6 @@ export default Vue.extend({
   margin: 0 8px;
   padding: 8px;
   width: 160px;
-  position: sticky;
-  top: 0;
 }
 
 /* side-listのsticky用の親要素 */
@@ -256,5 +276,18 @@ export default Vue.extend({
 
 .main {
   margin: 20px 0;
+}
+
+.search-box {
+  width: 600px;
+  display: flex;
+}
+
+.search-box__input {
+  width: 100%;
+}
+
+.search-box__button {
+  width: 100px;
 }
 </style>
