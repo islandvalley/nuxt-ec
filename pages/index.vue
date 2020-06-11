@@ -8,33 +8,7 @@
         </h2>
       </div>
       <div class="main-block">
-        <div class="side-list-wrapper">
-          <div class="side-list">
-            <div>絞り込み</div>
-            <ul>
-              <li>
-                <input id="t-thirt" type="checkbox" />
-                <label for="t-thirt">Tシャツ</label>
-              </li>
-              <li>
-                <input id="tops" type="checkbox" />
-                <label for="tops">トップス</label>
-              </li>
-              <li>
-                <input id="pants" type="checkbox" />
-                <label for="pants">パンツ</label>
-              </li>
-              <li>
-                <input id="shoes" type="checkbox" />
-                <label for="shoes">靴</label>
-              </li>
-              <li>
-                <input id="accesory" type="checkbox" />
-                <label for="accesory">アクセサリ</label>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <SideList />
         <div>
           <p v-if="searching">検索中</p>
           <ul v-else class="list">
@@ -51,12 +25,14 @@
 import Vue from 'vue'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import SideList from '../components/SideList'
 import Item from '../components/Item'
 
 export default Vue.extend({
   components: {
     Footer,
     Header,
+    SideList,
     Item
   },
   data() {
@@ -162,7 +138,7 @@ const items = [
 ]
 </script>
 
-<style>
+<style lang="scss" scoped>
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -190,64 +166,11 @@ const items = [
   padding-bottom: 15px;
 }
 
-.links {
-  padding-top: 15px;
-}
-
-.list {
-  width: 800px;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.item {
-  padding: 12px;
-  width: 25%;
-}
-
-.item-title {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.item-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.item-description {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-}
-
 .main-block {
   display: flex;
 }
 
-.side-list {
-  border: 1px solid #bbb;
-  border-radius: 8px;
-  margin: 0 8px;
-  padding: 8px;
-  width: 160px;
-}
-
-/* side-listのsticky用の親要素 */
-.side-list-wrapper {
-  display: block;
-}
-
 .main {
   margin: 20px 0;
-}
-
-.item-link {
-  text-decoration: none;
-  color: #222;
 }
 </style>
