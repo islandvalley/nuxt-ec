@@ -1,17 +1,6 @@
 <template>
   <div>
-    <header class="header">
-      <div>Logo</div>
-      <div class="search-box">
-        <input v-model="searchWord" type="text" class="search-box__input" />
-        <button type="button" class="search-box__button" @click="search">
-          検索
-        </button>
-      </div>
-      <div>
-        menu
-      </div>
-    </header>
+    <Header :search-input="searchWord" :search-button="search" />
     <main class="main">
       <div v-show="!searching">
         <h2>
@@ -49,35 +38,27 @@
         <div>
           <p v-if="searching">検索中</p>
           <ul v-else class="list">
-            <li v-for="(item, index) in items" :key="index" class="item">
-              <h4 class="item-title">{{ item.name }}</h4>
-              <img
-                :src="
-                  item.src.length > 0
-                    ? item.src
-                    : 'https://via.placeholder.com/150?text=No+Image'
-                "
-                alt="画像"
-                class="item-image"
-              />
-              <p v-show="!!item.description" class="item-description">
-                {{ item.description }}
-              </p>
-            </li>
+            <Item v-for="(item, index) in items" :key="index" :item="item" />
           </ul>
         </div>
       </div>
     </main>
-    <footer class="footer">
-      <small>Copy Write</small>
-    </footer>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import Item from '../components/Item'
 
 export default Vue.extend({
+  components: {
+    Footer,
+    Header,
+    Item
+  },
   data() {
     return {
       searchWord: '',
@@ -248,19 +229,6 @@ const items = [
   display: flex;
 }
 
-.header {
-  align-items: center;
-  height: 100px;
-  background: #35495e;
-  display: flex;
-  justify-content: space-between;
-}
-
-.footer {
-  height: 100px;
-  background: #35495e;
-}
-
 .side-list {
   border: 1px solid #bbb;
   border-radius: 8px;
@@ -278,16 +246,8 @@ const items = [
   margin: 20px 0;
 }
 
-.search-box {
-  width: 600px;
-  display: flex;
-}
-
-.search-box__input {
-  width: 100%;
-}
-
-.search-box__button {
-  width: 100px;
+.item-link {
+  text-decoration: none;
+  color: #222;
 }
 </style>
