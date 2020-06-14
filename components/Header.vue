@@ -38,7 +38,7 @@ export default Vue.extend({
   methods: {
     changeValue(event: Event) {
       const newValue = (event.target as HTMLInputElement).value
-      this.$store.commit('updateSearchWord', newValue)
+      this.$store.commit('search/updateSearchWord', newValue)
     }
   }
 })

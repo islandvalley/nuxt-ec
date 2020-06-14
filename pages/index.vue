@@ -35,108 +35,26 @@ export default Vue.extend({
     SideList,
     Item
   },
-  data() {
-    return {
-      searchWord: '',
-      searchedWord: '',
-      searching: false,
-      items: []
+  computed: {
+    searchWord() {
+      return this.$store.state.search.searchWord
+    },
+    searchedWord() {
+      return this.$store.state.search.searchedWord
+    },
+    searching() {
+      return this.$store.state.search.searching
+    },
+    items() {
+      return this.$store.state.search.items
     }
   },
-  computed: {},
   methods: {
     async search() {
-      console.log(this.searchWord)
-
-      this.searchedWord = this.$store.state.searchWord
-      this.$store.commit('updateSearchWord', '')
-
-
-      // 検索中に当たる挙動
-      this.items = []
-      this.searching = true
-      await setTimeout(() => {
-        this.items = items
-        this.searching = false
-      }, 3000)
+      await this.$store.dispatch('search/searchItems')
     }
   }
 })
-
-const items = [
-  {
-    name: 'item 1',
-    description: '商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/150'
-  },
-  {
-    name: 'item 2',
-    description:
-      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/150x300'
-  },
-  {
-    name: 'item 3タイトルがめっちゃ長くなってる',
-    description:
-      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/300x150'
-  },
-  {
-    name: 'item 4',
-    description: '商品の説明商品の説明',
-    src: 'https://via.placeholder.com/200'
-  },
-  {
-    name: 'item 5',
-    description: '',
-    src: ''
-  },
-  {
-    name: 'item 6',
-    description:
-      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/150'
-  },
-  {
-    name: 'item 7',
-    description: '商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/150'
-  },
-  {
-    name: 'item 8',
-    description:
-      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/150x300'
-  },
-  {
-    name: 'item 9タイトルがめっちゃ長くなってる',
-    description:
-      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/300x150'
-  },
-  {
-    name: 'item 10',
-    description: '商品の説明商品の説明',
-    src: 'https://via.placeholder.com/200'
-  },
-  {
-    name: 'item 11',
-    description: '',
-    src: ''
-  },
-  {
-    name: 'item 12',
-    description:
-      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/150'
-  },
-  {
-    name: 'item 13',
-    description:
-      '商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明商品の説明',
-    src: 'https://via.placeholder.com/150'
-  }
-]
 </script>
 
 <style lang="scss" scoped>
