@@ -8,5 +8,8 @@
 .footer {
   height: 100px;
   background: #35495e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>

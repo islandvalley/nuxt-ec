@@ -30,7 +30,6 @@
 .side-list {
   border: 1px solid #bbb;
   border-radius: 8px;
-  margin: 0 8px;
   padding: 8px;
   width: 160px;
 }

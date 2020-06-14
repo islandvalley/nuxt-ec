@@ -1,6 +1,8 @@
 <template>
   <header class="header">
-    <div>Logo</div>
+    <a href="/">
+      <img src="https://via.placeholder.com/150x50?text=logo" alt="logo" />
+    </a>
     <div class="search-box">
       <input
         :value="searchWord"
@@ -12,7 +14,7 @@
         検索
       </button>
     </div>
-    <div>
+    <div class="menu">
       menu
     </div>
   </header>
@@ -31,7 +33,7 @@ export default Vue.extend({
   data() {
     return {
       searchWord: ''
-  }
+    }
   },
   methods: {
     changeValue(event: Event) {
@@ -48,12 +50,15 @@ export default Vue.extend({
   height: 100px;
   background: #35495e;
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
+  padding: 0 20px;
+  position: relative;
 }
 
 .search-box {
   width: 600px;
   display: flex;
+  margin: 0 12px;
 }
 
 .search-box__input {
@@ -62,5 +67,10 @@ export default Vue.extend({
 
 .search-box__button {
   width: 100px;
+}
+
+.menu {
+  position: absolute;
+  right: 20px;
 }
 </style>

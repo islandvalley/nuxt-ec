@@ -172,6 +172,14 @@ const items = [
 }
 
 .main {
-  margin: 20px 0;
+  margin: 20px;
+  min-height: 80vh;
+}
+
+.list {
+  width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
 }
 </style>
