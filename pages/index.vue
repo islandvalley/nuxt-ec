@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header :search-input="searchWord" :search-button="search" />
+    <Header ref="header" :search-button="search" />
     <main class="main">
       <div v-show="!searching">
         <h2>
@@ -48,8 +48,9 @@ export default Vue.extend({
     async search() {
       console.log(this.searchWord)
 
-      this.searchedWord = this.searchWord
-      this.searchWord = ''
+      this.searchedWord = this.$store.state.searchWord
+      this.$store.commit('updateSearchWord', '')
+
 
       // 検索中に当たる挙動
       this.items = []

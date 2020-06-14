@@ -2,7 +2,12 @@
   <header class="header">
     <div>Logo</div>
     <div class="search-box">
-      <input v-model="searchInput" type="text" class="search-box__input" />
+      <input
+        :value="searchWord"
+        type="text"
+        class="search-box__input"
+        @change="changeValue"
+      />
       <button type="button" class="search-box__button" @click="searchButton">
         検索
       </button>
@@ -18,13 +23,20 @@ import Vue from 'vue'
 
 export default Vue.extend({
   props: {
-    searchInput: {
-      type: String,
-      required: true
-    },
     searchButton: {
       type: Function,
       required: true
+    }
+  },
+  data() {
+    return {
+      searchWord: ''
+  }
+  },
+  methods: {
+    changeValue(event: Event) {
+      const newValue = (event.target as HTMLInputElement).value
+      this.$store.commit('updateSearchWord', newValue)
     }
   }
 })
