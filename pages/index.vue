@@ -50,8 +50,8 @@ export default Vue.extend({
     }
   },
   methods: {
-    async search() {
-      await this.$store.dispatch('search/searchItems')
+    search() {
+      this.$store.dispatch('search/searchItems')
     }
   }
 })
